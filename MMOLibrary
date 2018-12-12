@@ -204,7 +204,7 @@ namespace MMOCustomLibrary{
 		
 	#endregion
 		
-
+		#region CLASS CONSTRUCTOR
 		public MMO(Hyland.Unity.IWorkflowScript theScript, Hyland.Unity.Application theApp, Hyland.Unity.WorkflowEventArgs theArgs ){	
 			/* DESCRIPTION: Set the script and application to instance */
 			this.script = theScript;
@@ -213,9 +213,10 @@ namespace MMOCustomLibrary{
 			this.args = theArgs; 
 			InitializeItems();							
 		}
+		#endregion
 
 		
-		
+		#region INITIALIZE ALL VARIABLES
 		public void InitializeItems()
 		{ 
 			/* DESCRIPTION: Initialize the configuration and then use the executing scripts arguments to 
@@ -230,7 +231,7 @@ namespace MMOCustomLibrary{
 			
 			switch (ENVIRONMENT)
 		        {
-		            case "OnBase":
+		            case "Production":
 		                ONBASE_CONNECTION_STRING = @"Server=beachhysqlrs;Database=OnBase;Uid=viewer;pwd=" + VIEWER_PASS;
 		                break;
 		            case "OBTest1":
@@ -255,7 +256,7 @@ namespace MMOCustomLibrary{
 			
 			BeginLog();
 		}
-		
+		#endregion
 		
 		#region TEXT SEPERATOR
 		public void LogSeperator()
@@ -264,6 +265,7 @@ namespace MMOCustomLibrary{
 		}
 		#endregion
 		
+		#region LOG BEGGINING OF LOG
 		public void BeginLog(){
 			/*Description: US*/
 			Log("\r\n");
@@ -275,6 +277,7 @@ namespace MMOCustomLibrary{
 			Log("* ---------------------------------------------------------------------------------------------------");
 			
 		}
+		#endregion
 		
 		#region LOG TO FILE 
 		public void Log(string strMessage)
@@ -304,9 +307,13 @@ namespace MMOCustomLibrary{
 		}
 		#endregion
 		
+		#region MOVE TO ERROR FOLDER
 		public void Error(){ 
-			str_Log_Filename = str_Log_Filename.Insert(str_Log_Filename.Length - (this.str_scriptAssemblyName.Length + 13), "Error/");
+			str_Log_Filename = str_Log_Filename.Insert(str_Log_Filename.Length - (this.str_scriptAssemblyName.Length + 13), @"Error\");
+			BeginLog();
+			Log(this.str_logMessage.ToString());
 		}
+		#endregion
 	}
 	
 
